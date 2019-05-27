@@ -1,4 +1,9 @@
 # django-rest-framework-custom-exceptions
+Why do we use it?
+If we are not using rest_frameworks exceptions, 
+then we will recieve a HTML page as a raised exception.
+Instead of that what we want is a exception as a response.
+rest_frameworks exceptions are used to map exceptions to response.
 Step. 1
 Install virtualenv on your local machine.
 
