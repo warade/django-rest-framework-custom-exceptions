@@ -42,6 +42,31 @@ Expected output:
     "Invalid input."
 ]
 ```
+You can change ValidationError with ParseError, which will lead to a response like this.
+```
+{
+    "detail": "Malformed request.",
+    "status_code": 400,
+    "myCustomInfo": "Read docs about posting carefully!"
+}
+```
+EDIT: The previous output was a list response of a ValidationError, other errors gives dict response.
+Hence, it is better if we convert this list response to a dict response. The code can be changed in custom_exception_handler.
+```
+dict_response = Response({})
+		dict_response.data['detail'] = response.data[0]
+		dict_response.data['status_code'] = response.status_code
+		dict_response.data['myCustomInfo'] = "Read docs about posting carefully!"
+		return dict_response
+```
+Expected output:
+```
+{
+    "detail": "Invalid input.",
+    "status_code": 400,
+    "myCustomInfo": "Read docs about posting carefully!"
+}
+```
 # Logic behind this
 Reference link 1 - https://github.com/encode/django-rest-framework/blob/master/rest_framework/exceptions.py
 Reference link 2 - https://www.django-rest-framework.org/api-guide/exceptions/
