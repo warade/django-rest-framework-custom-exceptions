@@ -1,4 +1,5 @@
 from rest_framework.views import exception_handler
+from rest_framework.response import Response
 
 def custom_exception_handler(exc, context):
 	print("are we here?")
@@ -16,7 +17,13 @@ def custom_exception_handler(exc, context):
 		# # output-> <class 'list'>
 		# print(response.status_code)
 		# # output-> 400
-		return response
+
+		# Converting list response to a dict response
+		dict_response = Response({})
+		dict_response.data['detail'] = response.data[0]
+		dict_response.data['status_code'] = response.status_code
+		dict_response.data['myCustomInfo'] = "Read docs about posting carefully!"
+		return dict_response
 	else:
 	# # Playground
 	# print(type(context))
@@ -37,3 +44,10 @@ def custom_exception_handler(exc, context):
 			response.data['status_code'] = response.status_code
 			response.data['myCustomInfo'] = "Read docs about posting carefully!"
 		return response
+
+
+# {
+#     "detail": "Malformed request.",
+#     "status_code": 400,
+#     "myCustomInfo": "Read docs about posting carefully!"
+# }
