@@ -1,5 +1,5 @@
 Django==2.2.1
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 django-rest-auth==0.9.5
 django-silk==3.0.2
 drfdocs==0.0.11
